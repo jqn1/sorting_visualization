@@ -1,15 +1,21 @@
-function bubbleSort(array){
-    for (let i = 0; i < array.length - 1; i++){
-        for (let j = 0; j < array.length - (i + 1); j++){
-            //console.log("i = ",i,"j = ",j,"\n array: ",array);
-            if (array[j] > array[j+1]){
-                let aux = array[j];
-                array[j] = array[j+1];
-                array[j+1] = aux;
-            }
-        }
+function bubbleSort(array, state_array, index){
+    if (last == 0){
+        return array;
     }
-    console.log("sorted array: ",array);
+    state_array[index] = 1;
+    state_array[index+1] = 1;
+    if (array[index] > array[index + 1]){
+        let aux = array[index];
+        array[index] = array[index + 1];
+        array[index + 1] = aux;
+    }
+    if (index == last - 1){
+        index = 0;
+        last = last -1;
+    }else{
+        index++;
+    }
+    return index;
 
-    return array;
+
 }
