@@ -1,6 +1,8 @@
 function bubbleSort(array, state_array, index){
     if (last == 0){
-        return array;
+        start = 0;
+        return ;
+
     }
     state_array[index] = 1;
     state_array[index+1] = 1;
@@ -17,5 +19,32 @@ function bubbleSort(array, state_array, index){
     }
     return index;
 
+
+}
+
+function bogoSort(array, state_array,index){
+
+    //shuffle elements until array is ordered
+ 
+    //check if array is ordered, if it is, exit
+    let is_ordered = 1;
+    for(let i = 0; i < array.length - 1; i++){
+        if( array[i] > array[i+1] ){
+            is_ordered = 0;
+            break;
+        }
+
+    }
+    if(is_ordered == 1){
+        start = 0;
+        return;
+    }
+    random_index1 = Math.floor(Math.random() * array.length - 0.00001);
+    random_index2 = Math.floor(Math.random() * array.length - 0.00001);
+    state_array[random_index1], state_array[random_index2] = 1;
+
+    temp = array[random_index1];
+    array[random_index1] = array[random_index2];
+    array[random_index2] = temp;
 
 }
