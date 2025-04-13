@@ -41,10 +41,35 @@ function bogoSort(array, state_array,index){
     }
     random_index1 = Math.floor(Math.random() * array.length);
     random_index2 = Math.floor(Math.random() * array.length);
-    state_array[random_index1], state_array[random_index2] = 1;
+    state_array[random_index1] = 1;
+    state_array[random_index2] = 1;
 
     temp = array[random_index1];
     array[random_index1] = array[random_index2];
     array[random_index2] = temp;
 
+}
+
+function selectionSort(array, state_array, index){
+    // if array is already sorted, exit
+    if (index == array.length - 1){
+        return;
+    }
+    // search for min unsorted value
+    let min_value = Infinity;  
+    let min_index;
+    for(let i = index; i < array.length; i++){
+        if (array[i] < min_value) {
+            min_value = array[i];
+            min_index = i;
+        }
+    }
+    state_array[index] = 1;
+    state_array[min_index] = 1;
+    // swap min element with first unordered element
+    temp = array[index];
+    array[index] = array[min_index];
+    array[min_index] = temp;
+    index++;
+    return index;
 }

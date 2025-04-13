@@ -1,4 +1,4 @@
-const FRAMERATE = 1000;
+const FRAMERATE = 60;
 const WIDTH = 800;
 const HEIGHT = 800;
 let array_size = 60;
@@ -6,8 +6,8 @@ let selected_function;
 let start = 0;
 let index;
 
-let algorithms_array = [bubbleSort,bogoSort];
-let algorithms_names = ["bubbleSort","bogoSort"];
+let algorithms_array = [bubbleSort,bogoSort, selectionSort];
+let algorithms_names = ["bubbleSort","bogoSort", "selectionSort"];
 
 
 let selection_menu = document.getElementById("algorithms");
@@ -22,8 +22,8 @@ let start_button = document.getElementById("start_button");
 start_button.onclick = () =>{
     let selection = selection_menu.value;
     // select function
-    for(let i =0; i < algorithms_names.length; i++){ 
-        if(selection == algorithms_names[i]){
+    for (let i = 0; i < algorithms_names.length; i++){ 
+        if (selection == algorithms_names[i]){
             selected_function = algorithms_array[i];
         }
     }
