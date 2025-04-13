@@ -13,16 +13,22 @@ function drawArray(array, canvas_width, canvas_height){
         state_array[i] = 0 ;
         
     }
-
 }
 
 function randomArray(size){
     const randomArray = [];
 
-    for (let i = 0; i < size; i++) {
-        randomArray.push(Math.random());
+    for (let i = 1; i <= size; i++) {
+        randomArray.push(i * 1 / size)
+    }
+    //shuffle the array 
+    for(let i = 1; i <= size; i++){
+        i1 = Math.floor(Math.random() * size);
+        i2 = Math.floor(Math.random() * size);
+        temp = randomArray[i1];
+        randomArray[i1] = randomArray[i2];
+        randomArray[i2] = temp;
     }
 
     return randomArray;
 }
-

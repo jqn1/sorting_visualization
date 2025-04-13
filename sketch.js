@@ -1,7 +1,7 @@
 const FRAMERATE = 1000;
 const WIDTH = 800;
 const HEIGHT = 800;
-let array_size = 6;
+let array_size = 60;
 let selected_function;
 let start = 0;
 let index;
@@ -30,6 +30,7 @@ start_button.onclick = () =>{
     if(start == 0){
         start = 1;
     }
+    
 }
 
 function setup() {

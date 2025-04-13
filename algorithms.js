@@ -39,8 +39,8 @@ function bogoSort(array, state_array,index){
         start = 0;
         return;
     }
-    random_index1 = Math.floor(Math.random() * array.length - 0.00001);
-    random_index2 = Math.floor(Math.random() * array.length - 0.00001);
+    random_index1 = Math.floor(Math.random() * array.length);
+    random_index2 = Math.floor(Math.random() * array.length);
     state_array[random_index1], state_array[random_index2] = 1;
 
     temp = array[random_index1];
