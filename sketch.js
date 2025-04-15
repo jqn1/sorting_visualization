@@ -1,61 +1,15 @@
-const FRAMERATE = 60;
 const WIDTH = 800;
 const HEIGHT = 800;
-let array_size = 60;
-let selected_function;
-let start = 0;
-let index;
-
-let algorithms_array = [bubbleSort,bogoSort, selectionSort];
-let algorithms_names = ["bubbleSort","bogoSort", "selectionSort"];
+let array_size = 100;
 
 
-let selection_menu = document.getElementById("algorithms");
+let array = randomArray(array_size);
+const canvas = document.getElementById("sketch");
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
 
-selection_menu.onchange = () => {
-    start = 0;
-    reboot();
-}
-
-
-let start_button = document.getElementById("start_button");
-start_button.onclick = () =>{
-    let selection = selection_menu.value;
-    // select function
-    for (let i = 0; i < algorithms_names.length; i++){ 
-        if (selection == algorithms_names[i]){
-            selected_function = algorithms_array[i];
-        }
-    }
-    if(start == 0){
-        start = 1;
-    }
-    
-}
-
-function setup() {
-    createCanvas(WIDTH, HEIGHT);
-    frameRate(FRAMERATE);
-    array = randomArray(array_size);
-    state_array = new Array(array_size).fill(0);
-    last = array.length - 1;
-    index = 0;
-}
-
-function reboot(){
-    array = randomArray(array_size);
-    state_array = new Array(array_size).fill(0);
-    last = array.length - 1;
-    index = 0;
-
-}
+const ctx = canvas.getContext("2d");
 
 
-  
-function draw() {
-    background(0, 0, 0);
-    if(start == 1){
-        index = selected_function(array,state_array,index);
-    }
-    drawArray(array,WIDTH,HEIGHT);
-}
+
+bubbleSort(array,WIDTH,HEIGHT,ctx);
