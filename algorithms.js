@@ -59,3 +59,36 @@ async function selectionSort(array, canvas_width, canvas_height, ctx){
     }
     
 }
+
+
+function quickSortPartition(array,start,end){
+    let pivot = array[end];
+    let i = start;
+    for (let j = start; j < end; j++){
+        if (j <= pivot){
+            let temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+            i++;
+        }
+    }
+    let temp = array[i];
+    array[i] = array[end];
+    array[end] = temp; 
+    console.log(array);
+    return i;
+}
+
+
+
+
+function quickSort(array,start,end) {
+    if (start < end) {
+        let index = quickSortPartition(array,start,end);
+
+        quickSort(array,start,index-1);
+        quickSort(array,index+1,end);
+
+    }else return;
+    
+}

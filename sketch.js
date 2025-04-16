@@ -5,9 +5,11 @@ const function_names = ["bubbleSort","selectionSort"];
 const functions = [bubbleSort,selectionSort,bogoSortStep];
 const menus_selection = [bubbleSort,bubbleSort];
 const start = document.getElementById("start_button");
-const array_size = 70;
+const array_size = 5;
 
 
+let test = randomArray(array_size);
+quickSort(test,0,test.length-1);
 
 let state_array1 = new Array(array_size).fill(0);
 let state_array2 = new Array(array_size).fill(0);
