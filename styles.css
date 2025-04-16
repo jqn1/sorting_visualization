@@ -5,3 +5,12 @@ body {
 div {
     margin: 10px;
 }
+
+#canvas_container {
+    display: flex;
+    flex-direction: row;
+}
+
+#canvas_container > canvas {
+    margin: 20px;
+}

@@ -42,3 +42,14 @@ function randomArray(size){
 function delay(ms){
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function startCanvas(container_id){
+    const div = document.getElementById(container_id);
+    const canvas = document.createElement("canvas");
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+    canvas.style="background-color: black;"
+    div.appendChild(canvas);
+    ctx = canvas.getContext("2d");
+    return ctx;
+}
