@@ -43,13 +43,40 @@ function delay(ms){
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function startCanvas(container_id){
+function startCanvas(container_id,function_names,functions,menus_selection,id){
     const div = document.getElementById(container_id);
+    const canvas_div = document.createElement("div");
+    canvas_div.style = "display:flex;flex-direction:column";
+    div.appendChild(canvas_div);
+    const select = document.createElement("select");
+    canvas_div.appendChild(select);
+    function_names.forEach((name) => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        select.appendChild(option);
+        
+    })
+
+
+
+
     const canvas = document.createElement("canvas");
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
     canvas.style="background-color: black;"
-    div.appendChild(canvas);
+    canvas_div.appendChild(canvas);
     ctx = canvas.getContext("2d");
+
+
+    select.onchange = (() => {
+        console.log(select.value);
+        for (let i = 0; i < function_names.length; i++){
+            if (select.value == function_names[i]) {
+                menus_selection[id] = functions[i];
+            }
+        }
+    })
+
     return ctx;
 }

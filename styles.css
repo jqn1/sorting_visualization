@@ -8,9 +8,16 @@ div {
 
 #canvas_container {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
 }
 
 #canvas_container > canvas {
     margin: 20px;
 }
+
+#start_button_container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+

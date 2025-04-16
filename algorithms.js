@@ -47,7 +47,6 @@ async function selectionSort(array, canvas_width, canvas_height, ctx){
             if (array[j] < min){
                 min = array[j];
                 min_index = j;
-                console.log("new min ",min);
             }
 
         }
