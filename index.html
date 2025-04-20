@@ -11,6 +11,21 @@
         <button type="button" id="start_button">Start</button> 
         <button type="button" id="reset_button"">Reset</button> 
       </div>
+
+      <div class="slider_container">
+        <div>Array size</div>
+        <input type="range" min="1" max="250" value="125" id="size">
+        <div id = "size_foot"></div>
+        <script>
+          const slider = document.getElementById("size");
+          const foot = document.getElementById("size_foot")
+          foot.textContent = slider.value;
+          slider.oninput = (() => {
+            foot.textContent = slider.value;
+            setTimeout(() => {reset_button.click()},1500);
+          })
+        </script>
+      </div>
       <div id = "canvas_container">
       </div>
   </body>

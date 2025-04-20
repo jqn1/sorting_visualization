@@ -48,6 +48,7 @@ function delay(ms){
 function startCanvas(container_id,function_names,functions,menus_selection,id){
     const div = document.getElementById(container_id);
     const canvas_div = document.createElement("div");
+    canvas_div.id = id.toString();
     canvas_div.style = "display:flex;flex-direction:column";
     div.appendChild(canvas_div);
     const select = document.createElement("select");
@@ -82,3 +83,4 @@ function startCanvas(container_id,function_names,functions,menus_selection,id){
 
     return ctx;
 }
+
