@@ -4,7 +4,9 @@ function drawArray(array,state_array, canvas_width, canvas_height,canvas_context
     for (let i = 0; i < array.length; i++){
         let x = rect_width * i;
         let rect_heigth = (canvas_height) * array[i];
-        if(state_array[i] == 1 || state_array[i] == 2){
+        if(state_array[i] == 1) {
+            canvas_context.fillStyle = "red";
+        } else if (state_array[i] == 2 ) {
             canvas_context.fillStyle = "limegreen";
         }else {
             canvas_context.fillStyle = "white"

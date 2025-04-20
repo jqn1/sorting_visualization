@@ -1,13 +1,12 @@
 
-async function bubbleSort(array,canvas_width,canvas_height,ctx){
+async function bubbleSort(array,ctx,start,end,state_array){
     let last;
-    let state_array = new Array(array_size).fill(0);
     for (let i = 0; i < array_size - 1; i++) {
         for (let j = 0; j < array_size - (i+1) ; j++) {
             state_array[j] = 1;
             state_array[j+1] = 1;
             ctx.clearRect(0, 0, WIDTH, HEIGHT);
-            drawArray(array,state_array,canvas_width,canvas_height,ctx);
+            drawArray(array,state_array,WIDTH,HEIGHT,ctx);
             await delay(DELAY);
             if (array[j] > array[j+1]){
                 temp = array[j];
@@ -19,6 +18,10 @@ async function bubbleSort(array,canvas_width,canvas_height,ctx){
         }
         state_array[last] = 2;
     }
+    state_array[0] = 2;
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    drawArray(array,state_array,WIDTH,HEIGHT,ctx);
+    await delay(0);
 }
 function bogoSortStep(array, state_array,index){
     random_index1 = Math.floor(Math.random() * array.length);
@@ -32,8 +35,8 @@ function bogoSortStep(array, state_array,index){
 
 }
 
-async function selectionSort(array, canvas_width, canvas_height, ctx){
-    let state_array = new Array(array_size).fill(0);
+async function selectionSort(array,ctx,start,end,state_array){
+    
 
     for (let i = 0; i < array.length; i++) {
         let min = array[i];
@@ -41,7 +44,7 @@ async function selectionSort(array, canvas_width, canvas_height, ctx){
         for (let j = i; j < array.length; j++) {
             state_array[j] = 1;
             ctx.clearRect(0, 0, WIDTH, HEIGHT);
-            drawArray(array,state_array,canvas_width,canvas_height,ctx);
+            drawArray(array,state_array,WIDTH,HEIGHT,ctx);
             await delay(DELAY);
 
             if (array[j] < min){
@@ -57,38 +60,48 @@ async function selectionSort(array, canvas_width, canvas_height, ctx){
 
         state_array[i] = 2;
     }
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    drawArray(array,state_array,WIDTH,HEIGHT,ctx);
+    await delay(DELAY);
     
 }
 
+async function quickSort(array,ctx,start,end, state_array) {
+    if (start < end) {
+        let index = await quickSortPartition(array, start, end, state_array);
+        await quickSort(array, ctx, start, index - 1,state_array);
+        await quickSort(array, ctx, index + 1, end,state_array);
+    }else {
+        state_array[start] = 2;
+    }
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    drawArray(array,state_array,WIDTH,HEIGHT,ctx);
+    await delay(0);
+}
 
-function quickSortPartition(array,start,end){
-    let pivot = array[end];
-    let i = start;
-    for (let j = start; j < end; j++){
-        if (j <= pivot){
+async function quickSortPartition(array, start, end, state_array) {
+    let last = array[end];
+    let i = start - 1;
+    for (j = start; j < end; j++) {
+        state_array[end] = 1;
+        state_array[j] = 1;
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        drawArray(array,state_array,WIDTH,HEIGHT,ctx);
+        await delay(DELAY);
+        if (array[j] <= last) {
+            i++;
             let temp = array[i];
             array[i] = array[j];
             array[j] = temp;
-            i++;
+            state_array[i] = 1;
         }
     }
-    let temp = array[i];
-    array[i] = array[end];
-    array[end] = temp; 
-    console.log(array);
-    return i;
-}
+    let temp = array[i+1];
+    array[i+1] = array[end];
+    array[end] = temp;
 
-
-
-
-function quickSort(array,start,end) {
-    if (start < end) {
-        let index = quickSortPartition(array,start,end);
-
-        quickSort(array,start,index-1);
-        quickSort(array,index+1,end);
-
-    }else return;
+    state_array[i+1] = 2;
     
+    return i + 1;
 }
+

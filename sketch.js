@@ -1,15 +1,13 @@
 const WIDTH = 700;
 const HEIGHT = 700;
-const DELAY = 1;
-const function_names = ["bubbleSort","selectionSort"];
-const functions = [bubbleSort,selectionSort,bogoSortStep];
+const DELAY = 10;
+const function_names = ["bubbleSort","selectionSort","quickSort"];
+const functions = [bubbleSort,selectionSort,quickSort];
 const menus_selection = [bubbleSort,bubbleSort];
 const start = document.getElementById("start_button");
-const array_size = 5;
+const array_size = 100;
 
 
-let test = randomArray(array_size);
-quickSort(test,0,test.length-1);
 
 let state_array1 = new Array(array_size).fill(0);
 let state_array2 = new Array(array_size).fill(0);
@@ -34,7 +32,8 @@ drawArray(array2,state_array1,WIDTH,HEIGHT,canvas2);
 
 start.onclick = () => {
     for (let i = 0; i < menus_selection.length; i++){
-        menus_selection[i](arrays[i],WIDTH,HEIGHT,canvases[i]);
+        menus_selection[i](arrays[i],canvases[i],0,arrays[i].length-1,new Array(arrays[i].length).fill(0));
+
     }
 
 }
