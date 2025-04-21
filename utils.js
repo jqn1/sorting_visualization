@@ -69,13 +69,15 @@ function startCanvas(container_id,function_names,functions,menus_selection,id){
     canvas.height = HEIGHT;
     canvas.style="background-color: black;"
     canvas_div.appendChild(canvas);
-    ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
 
     select.onchange = (() => {
         console.log(select.value);
         for (let i = 0; i < function_names.length; i++){
             if (select.value == function_names[i]) {
+                console.log(select.value);
+                console.log(function_names[i]);
                 menus_selection[id] = functions[i];
             }
         }

@@ -1,8 +1,8 @@
 const WIDTH = 700;
 const HEIGHT = 700;
 let DELAY = 1;
-const function_names = ["bubbleSort","selectionSort","quickSort"];
-const functions = [bubbleSort,selectionSort,quickSort];
+const function_names = ["bubbleSort","selectionSort","quickSort","bogoSort"];
+const functions = [bubbleSort,selectionSort,quickSort,bogoSort];
 const menus_selection = [bubbleSort,bubbleSort];
 const start = document.getElementById("start_button");
 let array_size;
@@ -22,12 +22,12 @@ let array2 = [...array1];
 arrays = [array1,array2];
 
 
-canvas1 = startCanvas("canvas_container",function_names,functions,menus_selection,0);
-canvas2 = startCanvas("canvas_container",function_names,functions,menus_selection,1);
-canvases = [canvas1,canvas2];
+let canvas1 = startCanvas("canvas_container",function_names,functions,menus_selection,0);
+let canvas2 = startCanvas("canvas_container",function_names,functions,menus_selection,1);
+let canvases = [canvas1,canvas2];
 
 drawArray(array1,state_array1,WIDTH,HEIGHT,canvas1);
-drawArray(array2,state_array1,WIDTH,HEIGHT,canvas2);
+drawArray(array2,state_array2,WIDTH,HEIGHT,canvas2);
 
 
 

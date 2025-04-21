@@ -23,15 +23,47 @@ async function bubbleSort(array,ctx,start,end,state_array){
     drawArray(array,state_array,WIDTH,HEIGHT,ctx);
     await delay(0);
 }
-function bogoSortStep(array, state_array,index){
-    random_index1 = Math.floor(Math.random() * array.length);
-    random_index2 = Math.floor(Math.random() * array.length);
-    state_array[random_index1] = 1;
-    state_array[random_index2] = 1;
+async function bogoSort(array, ctx, start, end, state_array) {
+    let is_ordered = 0;
+    let ordered_elements;
+    while (!is_ordered) {
 
-    let temp = array[random_index1];
-    array[random_index1] = array[random_index2];
-    array[random_index2] = temp;
+        // shuffle the array
+        for (let i = 0; i < array.length; i++) {
+            // select a random element to shuffle with element i
+            random_index = Math.floor(Math.random() * array.length);
+            let temp = array[i];
+            array[i] = array[random_index];
+            array[random_index] = temp;
+
+        }
+        // check if array is sorted
+        ordered_elements = 0;
+        for (let i = 0; i < array.length - 1; i++) {
+            state_array[i] = 2;
+            state_array[i+1] = 2;
+
+            if (array[i] > array[i+1]) {
+                state_array[i] = 1;
+                state_array[i+1] = 0;
+            }
+            ctx.clearRect(0, 0, WIDTH, HEIGHT);
+            drawArray(array,state_array,WIDTH,HEIGHT,ctx);
+            await delay(DELAY);
+
+            if (array[i] > array[i+1]) {
+                break;
+            }
+            ordered_elements++;
+        }
+
+            console.log(ordered_elements, array_size - 1);
+        if (ordered_elements == array_size -  1) {
+            is_ordered = 1;
+        }
+
+    }
+
 
 }
 
@@ -68,7 +100,7 @@ async function selectionSort(array,ctx,start,end,state_array){
 
 async function quickSort(array,ctx,start,end, state_array) {
     if (start < end) {
-        let index = await quickSortPartition(array, start, end, state_array);
+        let index = await quickSortPartition(array,ctx, start, end, state_array);
         await quickSort(array, ctx, start, index - 1,state_array);
         await quickSort(array, ctx, index + 1, end,state_array);
     }else {
@@ -79,7 +111,7 @@ async function quickSort(array,ctx,start,end, state_array) {
     await delay(0);
 }
 
-async function quickSortPartition(array, start, end, state_array) {
+async function quickSortPartition(array,ctx, start, end, state_array) {
     let last = array[end];
     let i = start - 1;
     for (j = start; j < end; j++) {
