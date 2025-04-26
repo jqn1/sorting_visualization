@@ -6,7 +6,7 @@ const functions = [bubbleSort,selectionSort,quickSort,bogoSort,insertionSort];
 const menus_selection = [bubbleSort,bubbleSort];
 const start = document.getElementById("start_button");
 let array_size;
-if (sessionStorage.getItem("array_size") != undefined) {
+if (sessionStorage.getItem("array_size") !=  undefined) {
     array_size = parseInt(sessionStorage.getItem("array_size"));
 }else {
     array_size = 125;

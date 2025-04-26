@@ -16,12 +16,8 @@ async function bubbleSort(array, ctx, start, end, state_array) {
             last = array_size - (i + 1);
 
         }
-        state_array[last] = 2;
     }
-    state_array[0] = 2;
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-    drawArray(array, state_array, WIDTH, HEIGHT, ctx);
-    await delay(0);
+    await completeSortAnimation(array,state_array,ctx);
 }
 async function bogoSort(array, ctx, start, end, state_array) {
     let is_ordered = 0;
@@ -39,17 +35,11 @@ async function bogoSort(array, ctx, start, end, state_array) {
         }
         // check if array is sorted
         ordered_elements = 0;
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        drawArray(array, state_array, WIDTH, HEIGHT, ctx);
+        await delay(DELAY);
         for (let i = 0; i < array.length - 1; i++) {
-            state_array[i] = 2;
-            state_array[i + 1] = 2;
 
-            if (array[i] > array[i + 1]) {
-                state_array[i] = 1;
-                state_array[i + 1] = 0;
-            }
-            ctx.clearRect(0, 0, WIDTH, HEIGHT);
-            drawArray(array, state_array, WIDTH, HEIGHT, ctx);
-            await delay(DELAY);
 
             if (array[i] > array[i + 1]) {
                 break;
@@ -63,13 +53,10 @@ async function bogoSort(array, ctx, start, end, state_array) {
         }
 
     }
-
-
+    await completeSortAnimation(array,state_array,ctx);
 }
 
 async function selectionSort(array, ctx, start, end, state_array) {
-
-
     for (let i = 0; i < array.length; i++) {
         let min = array[i];
         let min_index = i;
@@ -90,25 +77,22 @@ async function selectionSort(array, ctx, start, end, state_array) {
         array[i] = min;
         array[min_index] = temp;
 
-        state_array[i] = 2;
     }
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-    drawArray(array, state_array, WIDTH, HEIGHT, ctx);
-    await delay(DELAY);
+    await completeSortAnimation(array,state_array,ctx);
 
 }
 
-async function quickSort(array, ctx, start, end, state_array) {
+async function quickSortStep(array, ctx, start, end, state_array) {
     if (start < end) {
         let index = await quickSortPartition(array, ctx, start, end, state_array);
-        await quickSort(array, ctx, start, index - 1, state_array);
-        await quickSort(array, ctx, index + 1, end, state_array);
+        await quickSortStep(array, ctx, start, index - 1, state_array);
+        await quickSortStep(array, ctx, index + 1, end, state_array);
     } else {
-        state_array[start] = 2;
+        //state_array[start] = 2;
+        //ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        // drawArray(array, state_array, WIDTH, HEIGHT, ctx);
+        // await delay(0);
     }
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-    drawArray(array, state_array, WIDTH, HEIGHT, ctx);
-    await delay(0);
 }
 
 async function quickSortPartition(array, ctx, start, end, state_array) {
@@ -132,9 +116,14 @@ async function quickSortPartition(array, ctx, start, end, state_array) {
     array[i + 1] = array[end];
     array[end] = temp;
 
-    state_array[i + 1] = 2;
+    //state_array[i + 1] = 2;
 
     return i + 1;
+}
+
+async function quickSort(array, ctx, start, end, state_array) {
+    await quickSortStep(array,ctx,start,end,state_array);
+    await completeSortAnimation(array,state_array,ctx);
 }
 
 async function insertionSort(array, ctx, start, end, state_array) {
@@ -153,11 +142,6 @@ async function insertionSort(array, ctx, start, end, state_array) {
         array[j + 1] = key;
     }
     //color all array green
-    for (let i = 0; i < array.length; i++) {
-        state_array[i] = 2;
-        ctx.clearRect(0, 0, WIDTH, HEIGHT);
-        drawArray(array, state_array, WIDTH, HEIGHT, ctx);
-        await delay(DELAY);
-    }
+    await completeSortAnimation(array,state_array,ctx);
 
 }

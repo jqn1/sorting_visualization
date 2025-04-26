@@ -86,3 +86,12 @@ function startCanvas(container_id,function_names,functions,menus_selection,id){
     return ctx;
 }
 
+
+async function completeSortAnimation(array, state_array, ctx) {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    for (let i = 0; i < array.length; i++) {
+        state_array[i] = 2;
+        drawArray(array, state_array, WIDTH, HEIGHT, ctx);
+        await delay(DELAY);
+    }
+}
