@@ -145,3 +145,36 @@ async function insertionSort(array, ctx, start, end, state_array) {
     await completeSortAnimation(array,state_array,ctx);
 
 }
+
+async function mergeSortStep(array, ctx, start, end, state_array) {
+    if (start >= end) {
+        return;
+    }
+    const mid = start + Math.floor((end - start) / 2);
+    sorted_left = mergeSortStep(array, ctx, start, mid, state_array);
+    sorted_right = mergeSortStep(array, ctx, mid + 1, end, state_array);
+
+    merge(array, ctx, start, mid, mid+1, end, state_array);
+}
+
+async function merge(array, ctx, start1, end1, start2, end2) {
+    let i = start1;
+    let j = start2;
+    let sorted_array = new Array;
+    while (i <= end1 || j <= end2){
+        if (array[i] < array[j]) {
+            sorted_array.push(array[i]);
+            i++;
+        } else {
+            sorted_array.push(array[j]);
+            j++;
+        }
+    }
+    if (i == start2){
+        sorted_array.concat(array.slice(j,end2+1))
+    } else {
+        sorted_array.concat(array.slice(i,end1+1))
+    }
+    array.splice(start1, sorted_array.length, ...sorted_array.slice(0))
+    
+}
