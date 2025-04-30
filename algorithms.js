@@ -151,30 +151,51 @@ async function mergeSortStep(array, ctx, start, end, state_array) {
         return;
     }
     const mid = start + Math.floor((end - start) / 2);
-    sorted_left = mergeSortStep(array, ctx, start, mid, state_array);
-    sorted_right = mergeSortStep(array, ctx, mid + 1, end, state_array);
+    //console.log(mid);
+    sorted_left = await mergeSortStep(array, ctx, start, mid, state_array);
+    sorted_right = await mergeSortStep(array, ctx, mid + 1, end, state_array);
+    console.log(start,mid,mid+1,end)
 
-    merge(array, ctx, start, mid, mid+1, end, state_array);
+    await merge(array, ctx, start, mid, mid+1, end, state_array);
 }
 
-async function merge(array, ctx, start1, end1, start2, end2) {
+async function merge(array, ctx, start1, end1, start2, end2,state_array) {
     let i = start1;
     let j = start2;
-    let sorted_array = new Array;
-    while (i <= end1 || j <= end2){
+    const sorted_array = new Array;
+    console.log(i,"i")
+    console.log(i,"j")
+    while (i <= end1 && j <= end2){
         if (array[i] < array[j]) {
+            state_array[i] = 1;
+            state_array[j] = 1;
             sorted_array.push(array[i]);
             i++;
         } else {
             sorted_array.push(array[j]);
             j++;
         }
+        console.log(sorted_array);
     }
-    if (i == start2){
-        sorted_array.concat(array.slice(j,end2+1))
-    } else {
-        sorted_array.concat(array.slice(i,end1+1))
+    while (i <= end1) {
+        sorted_array.push(array[i])
+        i++;
     }
-    array.splice(start1, sorted_array.length, ...sorted_array.slice(0))
-    
+    while (j <= end2) {
+        sorted_array.push(array[j])
+        j++;
+    }
+    console.log(sorted_array);
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    drawArray(array, state_array, WIDTH, HEIGHT, ctx);
+    await delay(20);
+    array.splice(start1, (end2 - start1 + 1), ...sorted_array.slice(0))
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    drawArray(array, state_array, WIDTH, HEIGHT, ctx);
+    await delay(20);
+}
+
+async function mergeSort(array, ctx, start, end, state_array) {
+    await mergeSortStep(array,ctx,start,end,state_array);
+    await completeSortAnimation(array,state_array,ctx);
 }

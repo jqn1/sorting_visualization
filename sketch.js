@@ -1,8 +1,8 @@
 const WIDTH = 700;
 const HEIGHT = 700;
 let DELAY = 1;
-const function_names = ["bubbleSort","selectionSort","quickSort","bogoSort","insertionSort"];
-const functions = [bubbleSort,selectionSort,quickSort,bogoSort,insertionSort];
+const function_names = ["bubbleSort","selectionSort","quickSort","bogoSort","insertionSort", "mergeSort"];
+const functions = [bubbleSort,selectionSort,quickSort,bogoSort,insertionSort, mergeSort];
 const menus_selection = [bubbleSort,bubbleSort];
 const start = document.getElementById("start_button");
 let array_size;
